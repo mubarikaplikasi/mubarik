@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Edukasi & CBT</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+  <!-- NAVBAR HEADER -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- Logo App -->
+      <div class="flex items-center space-x-3">
+        <img id="appLogo" src="https://via.placeholder.com/40?text=LOGO" alt="Logo" class="h-10 w-10 object-contain rounded">
+        <span id="appName" class="text-xl font-bold text-indigo-700">EduPortal</span>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="hidden md:flex space-x-6 font-medium text-slate-600">
+        <button onclick="navigate('beranda')" class="hover:text-indigo-600">Beranda</button>
+        <button onclick="navigate('materi')" class="hover:text-indigo-600">Materi</button>
+        <button onclick="navigate('buku')" class="hover:text-indigo-600">Buku Digital</button>
+        <button onclick="navigate('absen')" class="hover:text-indigo-600">Absen Otomatis</button>
+        <button onclick="navigate('cbt')" class="hover:text-indigo-600">CBT Ujian</button>
+      </nav>
+
+      <!-- Auth & Settings Buttons -->
+      <div class="flex items-center space-x-3">
+        <button onclick="navigate('login')" id="btnLoginNav" class="px-4 py-2 text-sm text-indigo-600 border border-indigo-600 rounded-lg hover:bg-indigo-50">Masuk</button>
+        <button onclick="navigate('daftar')" id="btnDaftarNav" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Daftar</button>
+        <button onclick="navigate('pengaturan')" title="Pengaturan App" class="p-2 text-slate-500 hover:text-indigo-600">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BANNER PROMOSI DYNAMIS -->
+  <div id="bannerContainer" class="bg-gradient-to-r from-indigo-600 to-blue-500 text-white text-center py-4 px-4 shadow-inner">
+    <h2 id="bannerText" class="text-lg md:text-xl font-semibold">Selamat Datang di Platform Pembelajaran & CBT Interaktif!</h2>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+
+    <!-- 1. HALAMAN PUBLIK / BERANDA -->
+    <section id="page-beranda" class="space-y-6">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center space-y-4">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">Solusi Edukasi Digital & Evaluasi Terintegrasi</h1>
+        <p class="text-slate-600 max-w-2xl mx-auto">Akses materi belajar, perpustakaan digital, absensi harian otomatis, serta Computer-Based Test (CBT) yang terhubung langsung dengan bank soal interaktif.</p>
+        <div class="flex justify-center gap-4 pt-2">
+          <button onclick="navigate('cbt')" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl shadow-lg hover:bg-indigo-700">Mulai Ujian CBT</button>
+          <button onclick="navigate('materi')" class="px-6 py-3 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200">Lihat Materi</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LOGIN -->
+    <section id="page-login" class="hidden max-w-md mx-auto bg-white p-6 rounded-2xl shadow-md border border-slate-100">
+      <h2 class="text-2xl font-bold text-center mb-6">Masuk Akun</h2>
+      <form onsubmit="handleAuth(event, 'login')" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Email / NISN</label>
+          <input type="text" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Kata Sandi</label>
+          <input type="password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Masuk</button>
+      </form>
+    </section>
+
+    <!-- 3. DAFTAR AKUN -->
+    <section id="page-daftar" class="hidden max-w-md mx-auto bg-white p-6 rounded-2xl shadow-md border border-slate-100">
+      <h2 class="text-2xl font-bold text-center mb-6">Pendaftaran Akun Baru</h2>
+      <form onsubmit="handleAuth(event, 'daftar')" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
+          <input type="text" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input type="email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Kata Sandi</label>
+          <input type="password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700">Buat Akun</button>
+      </form>
+    </section>
+
+    <!-- 4. MATERI PEMBELAJARAN -->
+    <section id="page-materi" class="hidden space-y-4">
+      <h2 class="text-2xl font-bold">Materi Pembelajaran</h2>
+      <div id="materiList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- 5. BUKU DIGITAL -->
+    <section id="page-buku" class="hidden space-y-4">
+      <h2 class="text-2xl font-bold">Buku Digital (E-Book)</h2>
+      <div id="bukuList" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- 6. ABSEN OTOMATIS -->
+    <section id="page-absen" class="hidden max-w-lg mx-auto bg-white p-6 rounded-2xl shadow-md border border-slate-100">
+      <h2 class="text-2xl font-bold mb-4 text-center">Form Presensi Harian</h2>
+      <form onsubmit="handleAbsen(event)" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Nama Siswa</label>
+          <input type="text" id="absenNama" required class="w-full px-4 py-2 border rounded-lg">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Kelas</label>
+          <select id="absenKelas" class="w-full px-4 py-2 border rounded-lg">
+            <option>Kelas 6A</option>
+            <option>Kelas 6B</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Status Kehadiran</label>
+          <select id="absenStatus" class="w-full px-4 py-2 border rounded-lg">
+            <option value="Hadir">Hadir</option>
+            <option value="Izin">Izin</option>
+            <option value="Sakit">Sakit</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Kirim Absen</button>
+      </form>
+      <div id="absenResult" class="mt-4 text-center font-medium text-emerald-600"></div>
+    </section>
+
+    <!-- 7. CBT UJIAN (BANK SOAL KONEKSI) -->
+    <section id="page-cbt" class="hidden max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-slate-100 space-y-6">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h2 class="text-xl font-bold text-indigo-700">CBT Online System</h2>
+        <span id="cbtStatus" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-semibold">Bank Soal Terkoneksi</span>
+      </div>
+      <div id="cbtContainer" class="space-y-4">
+        <!-- Soal Dinamis -->
+      </div>
+      <button onclick="submitCBT()" id="btnSubmitCBT" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700">Selesaikan & Kirim Jawaban</button>
+      <div id="cbtResult" class="hidden p-4 bg-emerald-50 text-emerald-800 rounded-xl text-center text-lg font-bold"></div>
+    </section>
+
+    <!-- 8. PENGATURAN AKUN, LOGO & BANNER -->
+    <section id="page-pengaturan" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-slate-100 space-y-6">
+      <h2 class="text-2xl font-bold">Pengaturan Aplikasi & Branding</h2>
+      
+      <!-- Upload/Ganti Logo -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium">Unggah Logo Lembaga (Image File)</label>
+        <input type="file" id="logoInput" accept="image/*" onchange="updateLogo(event)" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+      </div>
+
+      <!-- Ubah Banner -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium">Teks Banner Promosi Pengumuman</label>
+        <input type="text" id="bannerInput" value="Selamat Datang di Platform Pembelajaran & CBT Interaktif!" class="w-full px-4 py-2 border rounded-lg">
+        <button onclick="updateBanner()" class="px-4 py-2 bg-slate-800 text-white text-sm rounded-lg">Simpan Banner</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT APP LOGIC -->
+  <script>
+    // Global State
+    let dbData = { materi: [], buku: [], bankSoal: [] };
+    let userAnswers = {};
+
+    // Initialize App
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      loadData();
+    });
+
+    // Routing Single-Page Application (SPA)
+    function navigate(pageId) {
+      const pages = ['beranda', 'login', 'daftar', 'materi', 'buku', 'absen', 'cbt', 'pengaturan'];
+      pages.forEach(p => {
+        const el = document.getElementById(`page-${p}`);
+        if(el) el.classList.add('hidden');
+      });
+      document.getElementById(`page-${pageId}`).classList.remove('hidden');
+    }
+
+    // Load Data dari Backend Script / Local Storage Fallback
+    function loadData() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(renderData).getInitialData();
+      } else {
+        // Fallback untuk Hosting Online Biasa tanpa GAS
+        dbData = {
+          materi: [
+            { id: 1, judul: "Matematika SD/MI Kelas 6 - Bangun Ruang", tipe: "Video & Ringkasan" },
+            { id: 2, judul: "Literasi AKM & Kunci Jawaban", tipe: "Modul PDF" }
+          ],
+          buku: [
+            { id: 1, judul: "Buku Siswa Matematika Kelas 6", pengarang: "Kemdikbud", cover: "https://via.placeholder.com/150x200?text=Buku+Matematika" }
+          ],
+          bankSoal: [
+            { id: 1, pertanyaan: "Berapa jumlah sisi pada prisma segitiga?", opsi: ["5", "6", "8", "9"], kunci: 0 },
+            { id: 2, pertanyaan: "Sebuah limas segi empat memiliki berapa titik sudut?", opsi: ["4", "5", "6", "8"], kunci: 1 }
+          ]
+        };
+        renderData(dbData);
+      }
+    }
+
+    function renderData(data) {
+      dbData = data;
+      
+      // Render Materi
+      const materiContainer = document.getElementById('materiList');
+      materiContainer.innerHTML = data.materi.map(m => `
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-slate-800">${m.judul}</h3>
+            <span class="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded mt-1 inline-block">${m.tipe}</span>
+          </div>
+          <button class="px-3 py-1.5 bg-indigo-600 text-white text-xs rounded-lg">Buka</button>
+        </div>
+      `).join('');
+
+      // Render Buku
+      const bukuContainer = document.getElementById('bukuList');
+      bukuContainer.innerHTML = data.buku.map(b => `
+        <div class="bg-white p-3 rounded-xl border border-slate-100 text-center space-y-2 shadow-sm">
+          <img src="${b.cover}" class="h-40 w-full object-cover rounded-lg mx-auto">
+          <h4 class="font-bold text-sm truncate">${b.judul}</h4>
+          <p class="text-xs text-slate-500">${b.pengarang}</p>
+        </div>
+      `).join('');
+
+      // Render CBT Ujian
+      const cbtContainer = document.getElementById('cbtContainer');
+      cbtContainer.innerHTML = data.bankSoal.map((q, idx) => `
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <p class="font-semibold text-slate-800">${idx + 1}. ${q.pertanyaan}</p>
+          <div class="space-y-2">
+            ${q.opsi.map((opt, oIdx) => `
+              <label class="flex items-center space-x-3 bg-white p-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                <input type="radio" name="question_${q.id}" value="${oIdx}" onchange="userAnswers[${q.id}] = ${oIdx}" class="text-indigo-600 focus:ring-indigo-500">
+                <span class="text-sm">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Submit CBT Evaluation
+    function submitCBT() {
+      let score = 0;
+      dbData.bankSoal.forEach(q => {
+        if (userAnswers[q.id] === q.kunci) {
+          score += (100 / dbData.bankSoal.length);
+        }
+      });
+
+      const resDiv = document.getElementById('cbtResult');
+      resDiv.classList.remove('hidden');
+      resDiv.innerText = `Ujian Selesai! Nilai Anda: ${Math.round(score)} / 100`;
+    }
+
+    // Absen Handler
+    function handleAbsen(e) {
+      e.preventDefault();
+      const nama = document.getElementById('absenNama').value;
+      const kelas = document.getElementById('absenKelas').value;
+      const status = document.getElementById('absenStatus').value;
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(res => {
+          document.getElementById('absenResult').innerText = res.message;
+        }).simpanPresensi({ nama, kelas, status });
+      } else {
+        document.getElementById('absenResult').innerText = `[Offline Mode] Absen ${nama} (${status}) Berhasil!`;
+      }
+    }
+
+    // Auth Form Handler
+    function handleAuth(e, mode) {
+      e.preventDefault();
+      alert(`Berhasil ${mode === 'login' ? 'Masuk' : 'Mendaftar'}!`);
+      navigate('beranda');
+    }
+
+    // Dynamic Upload Logo & Banner
+    function updateLogo(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('appLogo').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateBanner() {
+      const txt = document.getElementById('bannerInput').value;
+      document.getElementById('bannerText').innerText = txt;
+      alert("Banner berhasil diperbarui!");
+    }
+  </script>
+</body>
+</html>
